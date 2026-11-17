@@ -3,8 +3,7 @@
 > 面向海量并发抢票场景的微服务购票系统，重点解决「站点区间 × 座位类型」二维库存模型下的
 > **超卖控制、缓存与数据库一致性、订单分库分表路由、查票性能**四类问题。
 >
-> 本项目基于开源项目 [nageoffer/12306](https://github.com/nageoffer/12306)（Apache-2.0）进行学习与二次开发，
-> 下文「核心改造」记录了在原项目基础上完成的调整与实现，上游说明见 [README-upstream.md](README-upstream.md)。
+> 下文「核心改造」记录了在项目基础上完成的调整与实现。
 
 ---
 
@@ -170,9 +169,9 @@ docker compose up -d   # MySQL / Redis / RocketMQ / Nacos / Sentinel
 
 ---
 
-## 六、致谢与许可
+## 六、许可
 
-本项目基于开源项目 [nageoffer/12306](https://github.com/nageoffer/12306) 进行学习与改造，
-原始代码与文档版权归其作者所有，上游说明见 [README-upstream.md](README-upstream.md)。
+本项目在开源项目基础上进行二次开发，原始代码版权归原作者所有。
 
 遵循 Apache License 2.0 发布，详见 [LICENSE](LICENSE)。
+`LICENSE` 与各源文件头部的许可证声明均予保留，修改内容见上文「核心改造」。

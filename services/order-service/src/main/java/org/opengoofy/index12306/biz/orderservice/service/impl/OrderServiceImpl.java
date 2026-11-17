@@ -73,7 +73,6 @@ import java.util.Objects;
 
 /**
  * 订单服务接口层实现
- * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
  */
 @Slf4j
 @Service
@@ -177,7 +176,7 @@ public class OrderServiceImpl implements OrderService {
                     .orderSn(orderSn)
                     .trainPurchaseTicketResults(requestParam.getTicketOrderItems())
                     .build();
-            // 创建订单并支付后延时关闭订单消息怎么办？详情查看：https://nageoffer.com/12306/question
+            // 创建订单并支付后延时关闭订单消息怎么办？
             SendResult sendResult = delayCloseOrderSendProduce.sendMessage(delayCloseOrderEvent);
             if (!Objects.equals(sendResult.getSendStatus(), SendStatus.SEND_OK)) {
                 throw new ServiceException("投递延迟关闭订单消息队列失败");

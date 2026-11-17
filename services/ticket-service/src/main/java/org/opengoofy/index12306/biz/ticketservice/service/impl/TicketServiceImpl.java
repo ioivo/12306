@@ -131,7 +131,6 @@ import static org.opengoofy.index12306.biz.ticketservice.toolkit.DateUtil.conver
 
 /**
  * 车票接口实现
- * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
  */
 @Slf4j
 @Service
@@ -167,7 +166,7 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
         // 责任链模式 验证城市名称是否存在、不存在加载缓存以及出发日期不能小于当前日期等等
         ticketPageQueryAbstractChainContext.handler(TicketChainMarkEnum.TRAIN_QUERY_FILTER.name(), requestParam);
         StringRedisTemplate stringRedisTemplate = (StringRedisTemplate) distributedCache.getInstance();
-        // 列车查询逻辑较为复杂，详细解析文章查看 https://nageoffer.com/12306/question
+        // 列车查询逻辑较为复杂，
         // v1 版本存在严重的性能深渊问题，v2 版本完美的解决了该问题。通过 Jmeter 压测聚合报告得知，性能提升在 300% - 500%+
         List<Object> stationDetails = stringRedisTemplate.opsForHash()
                 .multiGet(REGION_TRAIN_STATION_MAPPING, Lists.newArrayList(requestParam.getFromStation(), requestParam.getToStation()));
@@ -398,7 +397,7 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
         // 责任链模式，验证 1：参数必填 2：参数正确性 3：乘客是否已买当前车次等...
         purchaseTicketAbstractChainContext.handler(TicketChainMarkEnum.TRAIN_PURCHASE_TICKET_FILTER.name(), requestParam);
         // v1 版本购票存在 4 个较为严重的问题，v2 版本相比较 v1 版本更具有业务特点以及性能，整体提升较大
-        // 写了详细的 v2 版本购票升级指南，详情查看：https://nageoffer.com/12306/question
+        // 写了详细的 v2 版本购票升级指南，
         String lockKey = environment.resolvePlaceholders(String.format(LOCK_PURCHASE_TICKETS, requestParam.getTrainId()));
         RLock lock = redissonClient.getLock(lockKey);
         lock.lock();
@@ -544,7 +543,7 @@ public class TicketServiceImpl extends ServiceImpl<TicketMapper, TicketDO> imple
     public TicketPurchaseRespDTO executePurchaseTickets(PurchaseTicketReqDTO requestParam) {
         List<TicketOrderDetailRespDTO> ticketOrderDetailResults = new ArrayList<>();
         String trainId = requestParam.getTrainId();
-        // 节假日高并发购票Redis能扛得住么？详情查看：https://nageoffer.com/12306/question
+        // 节假日高并发购票Redis能扛得住么？
         TrainDO trainDO = distributedCache.safeGet(
                 TRAIN_INFO + trainId,
                 TrainDO.class,

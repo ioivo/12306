@@ -51,7 +51,6 @@ import java.util.stream.Collectors;
 
 /**
  * 购票时列车座位选择器
- * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
  */
 @Slf4j
 @Component
@@ -72,12 +71,12 @@ public final class TrainSeatTypeSelector {
         if (seatTypeMap.size() > 1) {
             List<Future<List<TrainPurchaseTicketRespDTO>>> futureResults = new ArrayList<>(seatTypeMap.size());
             seatTypeMap.forEach((seatType, passengerSeatDetails) -> {
-                // 线程池参数如何设置？详情查看：https://nageoffer.com/12306/question
+                // 线程池参数如何设置？
                 Future<List<TrainPurchaseTicketRespDTO>> completableFuture = selectSeatThreadPoolExecutor
                         .submit(() -> distributeSeats(trainType, seatType, requestParam, passengerSeatDetails));
                 futureResults.add(completableFuture);
             });
-            // 并行流极端情况下有坑，详情参考：https://nageoffer.com/12306/question
+            // 并行流极端情况下有坑，
             futureResults.parallelStream().forEach(completableFuture -> {
                 try {
                     actualResult.addAll(completableFuture.get());
@@ -133,7 +132,7 @@ public final class TrainSeatTypeSelector {
             TrainStationPriceDO trainStationPriceDO = trainStationPriceMapper.selectOne(lambdaQueryWrapper);
             each.setAmount(trainStationPriceDO.getPrice());
         });
-        // 购买列车中间站点余票如何更新？详细查看：https://nageoffer.com/12306/question
+        // 购买列车中间站点余票如何更新？
         seatService.lockSeat(requestParam.getTrainId(), requestParam.getDeparture(), requestParam.getArrival(), actualResult);
         return actualResult;
     }

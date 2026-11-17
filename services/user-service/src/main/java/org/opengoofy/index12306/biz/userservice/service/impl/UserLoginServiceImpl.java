@@ -73,7 +73,6 @@ import static org.opengoofy.index12306.biz.userservice.toolkit.UserReuseUtil.has
 
 /**
  * 用户登录接口实现
- * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
  */
 @Slf4j
 @Service
@@ -249,7 +248,7 @@ public class UserLoginServiceImpl implements UserLoginService {
             throw new ClientException("注销账号与登录账号不一致");
         }
         RLock lock = redissonClient.getLock(USER_DELETION + requestParam.getUsername());
-        // 加锁为什么放在 try 语句外？https://www.yuque.com/magestack/12306/pu52u29i6eb1c5wh
+        // 加锁为什么放在 try 语句外？
         lock.lock();
         try {
             UserQueryRespDTO userQueryRespDTO = userService.queryUserByUsername(username);

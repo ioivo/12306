@@ -28,15 +28,14 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Hippo4j 动态线程池配置
- * <a href="https://github.com/opengoofy/hippo4j">异步线程池框架，支持线程池动态变更&监控&报警</a>
- * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
+ * 异步线程池框架，支持线程池动态变更&监控&报警
  */
 @Configuration
 public class Hippo4jThreadPoolConfiguration {
 
     /**
      * 分配一个用户购买不同类型车票的线程池
-     * <a href="https://nageoffer.com/12306/question">线程池参数如何设置</>
+     * 线程池参数如何设置
      */
     @Bean
     @DynamicThreadPool

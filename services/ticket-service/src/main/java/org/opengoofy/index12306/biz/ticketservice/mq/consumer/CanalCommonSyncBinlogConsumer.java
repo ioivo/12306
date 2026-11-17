@@ -37,7 +37,6 @@ import java.util.Objects;
 
 /**
  * 列车车票余量缓存更新消费端
- * 公众号：马丁玩编程，回复：加群，添加马哥微信（备注：12306）获取项目资料
  */
 @Slf4j
 @Component
@@ -62,7 +61,7 @@ public class CanalCommonSyncBinlogConsumer implements RocketMQListener<CanalBinl
     )
     @Override
     public void onMessage(CanalBinlogEvent message) {
-        // 余票 Binlog 更新延迟问题如何解决？详情查看：https://nageoffer.com/12306/question
+        // 余票 Binlog 更新延迟问题如何解决？
         if (message.getIsDdl()
                 || CollUtil.isEmpty(message.getOld())
                 || !Objects.equals("UPDATE", message.getType())
